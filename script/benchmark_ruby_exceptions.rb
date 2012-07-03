@@ -8,17 +8,25 @@ HOW_MANY_TIMES = 1000
 Benchmark.bmbm do |x|
   user_name = ""
 
-  x.report("exception") do
+  x.report("if") do
     HOW_MANY_TIMES.times do
       nil if user_name.empty?
     end
   end
 
-  x.report("if") do
+  x.report("exception") do
     HOW_MANY_TIMES.times do
       begin
         raise "boom!" if user_name.empty?
       rescue => e
+      end
+    end
+  end
+
+  x.report("catch/twrow") do
+    HOW_MANY_TIMES.times do
+      catch(:error) do
+        throw :error if user_name.empty?
       end
     end
   end
