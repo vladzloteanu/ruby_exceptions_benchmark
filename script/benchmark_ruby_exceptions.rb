@@ -33,17 +33,16 @@ Benchmark.bmbm do |x|
 
 end
 
-
 Benchmark.bmbm do |x|
   user = User.new
 
-  x.report("REAL CASE: if") do
+  x.report("ActiveRecord#save") do
     HOW_MANY_TIMES.times do
       nil unless (user.save)
     end
   end
 
-  x.report("REAL CASE: exception") do
+  x.report("ActiveRecord#save!") do
     HOW_MANY_TIMES.times do
       begin
         user.save!
